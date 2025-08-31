@@ -1,0 +1,21 @@
+<ion-card *ngIf="quote as q; else vacio">
+  <ion-card-header>
+    <ion-card-title>{{ q.text }}</ion-card-title>
+    <ion-card-subtitle> {{ q.author }}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>Inspiración al azar ✨</p>
+  </ion-card-content>
+</ion-card>
+
+<ng-template #vacio>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>No hay cita disponible</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Genera una cita aleatoria desde el servicio.</p>
+    </ion-card-content>
+  </ion-card>
+</ng-template>
