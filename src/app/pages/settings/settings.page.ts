@@ -1,3 +1,4 @@
+
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { SettingsService } from 'src/app/core/settings.service';
   ]
 })
 export class SettingsPage {
+
   private settings = inject(SettingsService);
   allowDelete = this.settings.allowDelete;
 
