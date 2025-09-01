@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonCardContent, IonCardSubtitle, IonCardTitle, IonCard, IonCardHeader } from "@ionic/angular/standalone";
 import { QuoteService } from '../../core/quote.service';
 import { CommonModule } from '@angular/common';
@@ -11,18 +11,11 @@ import { CommonModule } from '@angular/common';
   imports: [IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonCard, CommonModule],
 })
 
-export class QuoteComponent implements OnInit {
-  constructor(private quoteService: QuoteService) {
-    this.quoteService = new QuoteService();
-   }
-   
-
-  ngOnInit() { this.getQuote(); }
-
-  quote: { text: string; author: string } | null = null;
+export class QuoteComponent {
+  private quoteService = inject(QuoteService);
+  quote: { text: string; author: string } | null = this.quoteService.getRandomQuote();
 
   getQuote() {
     this.quote = this.quoteService.getRandomQuote();
   }
-
 }

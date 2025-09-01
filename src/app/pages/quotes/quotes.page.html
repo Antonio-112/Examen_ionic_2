@@ -10,7 +10,19 @@
       <ion-title size="large">quotes</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-input [(ngModel)]="newQuoteText" placeholder="Quote"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="newQuoteAuthor" placeholder="Author"></ion-input>
+    </ion-item>
+    <ion-button expand="block" (click)="addQuote()">Add Quote</ion-button>
+  </ion-list>
   <app-quote-list></app-quote-list>
 </ion-content>
+<ion-footer>
+  <app-nav></app-nav>
+</ion-footer>
 
 
