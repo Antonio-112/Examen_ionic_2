@@ -26,4 +26,8 @@ export class QuoteService {
     getAllQuotes() {
         return this.quotes;
     }
+
+    addQuote(quote: { text: string; author: string }) {
+        this.quotes.push(quote);
+    }
 }

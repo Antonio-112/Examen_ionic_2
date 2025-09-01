@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -28,11 +28,6 @@ import { NavComponent } from 'src/app/components/nav/nav.component';
     NavComponent,
   ]
 })
-export class SettingsPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class SettingsPage {
+  constructor() {}
 }
