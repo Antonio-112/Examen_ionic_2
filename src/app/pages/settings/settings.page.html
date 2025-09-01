@@ -12,7 +12,19 @@
   </ion-header>
   <br>
   <div>
-    <ion-toggle [enableOnOffLabels]="true" labelPlacement="stacked" aria-label="Tertiary toggle" color="tertiary" [checked]="true" alignment="center">¿Desea poder borrar citas en el inicio (frase aleatoria)?</ion-toggle>
+    <ion-toggle
+      [enableOnOffLabels]="true"
+      labelPlacement="stacked"
+      aria-label="Tertiary toggle"
+      color="tertiary"
+      [checked]="allowDelete"
+      (ionChange)="onToggle($event)"
+      alignment="center"
+      >¿Desea poder borrar citas en el inicio (frase aleatoria)?</ion-toggle
+    >
   </div>
-  
+
 </ion-content>
+<ion-footer>
+  <app-nav></app-nav>
+</ion-footer>

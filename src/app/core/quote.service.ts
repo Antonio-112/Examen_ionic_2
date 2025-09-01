@@ -26,4 +26,14 @@ export class QuoteService {
     getAllQuotes() {
         return this.quotes;
     }
+
+    addQuote(quote: { text: string; author: string }) {
+        this.quotes.push(quote);
+    }
+
+    removeQuote(quote: { text: string; author: string }) {
+        this.quotes = this.quotes.filter(
+            q => q.text !== quote.text || q.author !== quote.author
+        );
+    }
 }

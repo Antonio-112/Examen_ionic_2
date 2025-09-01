@@ -1,20 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonToggle } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonToggle,
+  IonFooter,
+} from '@ionic/angular/standalone';
+import { NavComponent } from 'src/app/components/nav/nav.component';
+import { SettingsService } from 'src/app/core/settings.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
   standalone: true,
-  imports: [IonToggle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [
+    IonToggle,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonFooter,
+    CommonModule,
+    FormsModule,
+    NavComponent,
+  ]
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage {
+  private settings = inject(SettingsService);
+  allowDelete = this.settings.allowDelete;
 
-  constructor() { }
-
-  ngOnInit() {
+  onToggle(event: Event) {
+    const toggle = event as CustomEvent;
+    this.allowDelete = toggle.detail.checked;
+    this.settings.allowDelete = this.allowDelete;
   }
-
 }
