@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { IonContent, IonList, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonCardContent, IonButton } from "@ionic/angular/standalone";
 import { QuoteService, Quote } from 'src/app/core/quote.service';
 
+
 @Component({
   selector: 'app-quote-list',
   templateUrl: './list.component.html',

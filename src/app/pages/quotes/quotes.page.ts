@@ -46,6 +46,7 @@ export class QuotesPage {
     if (this.newQuoteText.trim() && this.newQuoteAuthor.trim()) {
       const quote: Quote = { text: this.newQuoteText, author: this.newQuoteAuthor };
       this.quoteService.addQuote(quote);
+
       this.newQuoteText = '';
       this.newQuoteAuthor = '';
     }

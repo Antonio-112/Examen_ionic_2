@@ -33,6 +33,7 @@ addIcons({ trashOutline });
 })
 
 export class QuoteComponent {
+
   @Input() allowDelete = false;
   @Output() deleted = new EventEmitter<void>();
 
