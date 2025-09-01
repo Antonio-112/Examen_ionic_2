@@ -6,6 +6,10 @@
 
   <ion-card-content>
     <p>Inspiración al azar ✨</p>
+    <ion-button *ngIf="allowDelete" color="danger" (click)="onDelete()">
+      <ion-icon name="trash-outline" slot="start"></ion-icon>
+      Borrar
+    </ion-button>
   </ion-card-content>
 </ion-card>
 

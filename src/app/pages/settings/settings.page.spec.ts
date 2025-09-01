@@ -1,17 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { SettingsPage } from './settings.page';
+import { SettingsService } from 'src/app/core/settings.service';
 
 describe('SettingsPage', () => {
   let component: SettingsPage;
-  let fixture: ComponentFixture<SettingsPage>;
+  let settings: SettingsService;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({ imports: [SettingsPage] });
+    settings = TestBed.inject(SettingsService);
+    component = TestBed.createComponent(SettingsPage).componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should toggle allowDelete', () => {
+    const event = { detail: { checked: true } } as CustomEvent;
+    component.onToggle(event);
+    expect(settings.getAllowDelete()).toBe(true);
   });
 });
