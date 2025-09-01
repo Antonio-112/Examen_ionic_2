@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { QuotesPage } from './quotes.page';
 import { QuoteService } from 'src/app/core/quote.service';
 
@@ -8,6 +9,7 @@ describe('QuotesPage', () => {
   let service: QuoteService;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [QuotesPage], providers: [provideRouter([])] });
     fixture = TestBed.createComponent(QuotesPage);
     component = fixture.componentInstance;
     service = TestBed.inject(QuoteService);

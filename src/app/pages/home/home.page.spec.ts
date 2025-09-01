@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { HomePage } from './home.page';
 import { SettingsService } from 'src/app/core/settings.service';
 
@@ -7,7 +8,7 @@ describe('HomePage', () => {
   let settings: SettingsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [HomePage] });
+    TestBed.configureTestingModule({ imports: [HomePage], providers: [provideRouter([])] });
     settings = TestBed.inject(SettingsService);
     component = TestBed.createComponent(HomePage).componentInstance;
   });
