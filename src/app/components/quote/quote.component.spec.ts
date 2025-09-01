@@ -27,7 +27,8 @@ describe('QuoteComponent', () => {
 
   it('should emit deleted when delete button clicked', () => {
     component.allowDelete = true;
-    spyOn(component.deleted, 'emit');
+    jest.spyOn(component.deleted, 'emit');
+
     fixture.detectChanges();
     const button: HTMLElement = fixture.nativeElement.querySelector('ion-button');
     button.click();

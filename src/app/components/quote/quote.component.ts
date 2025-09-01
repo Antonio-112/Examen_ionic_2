@@ -1,4 +1,3 @@
-
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {
   IonCardContent,
@@ -9,9 +8,7 @@ import {
   IonButton,
   IonIcon,
 } from "@ionic/angular/standalone";
-
-
-import { QuoteService } from '../../core/quote.service';
+import { QuoteService, Quote } from '../../core/quote.service';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
@@ -41,18 +38,21 @@ export class QuoteComponent {
   @Output() deleted = new EventEmitter<void>();
 
   private quoteService = inject(QuoteService);
-  quote: { text: string; author: string } | null = this.quoteService.getRandomQuote();
+  private currentQuote: Quote | null = this.quoteService.getRandomQuote();
 
-  getQuote() {
-    this.quote = this.quoteService.getRandomQuote();
+  get quote(): Quote | null {
+    return this.currentQuote;
   }
 
+  getQuote() {
+    this.currentQuote = this.quoteService.getRandomQuote();
+  }
 
   onDelete() {
-    if (this.quote) {
-      this.quoteService.removeQuote(this.quote);
+    if (this.currentQuote) {
+      this.quoteService.removeQuote(this.currentQuote);
       this.deleted.emit();
-      this.quote = this.quoteService.getRandomQuote();
+      this.currentQuote = this.quoteService.getRandomQuote();
     }
   }
 }

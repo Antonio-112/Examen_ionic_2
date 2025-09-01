@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 
+import { Component, inject } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -28,10 +28,10 @@ import { SettingsService } from 'src/app/core/settings.service';
 })
 export class HomePage {
   private settings = inject(SettingsService);
-  allowDelete = this.settings.allowDelete;
+  allowDelete = this.settings.getAllowDelete();
 
   ionViewWillEnter() {
-    this.allowDelete = this.settings.allowDelete;
+    this.allowDelete = this.settings.getAllowDelete();
   }
 
   quoteDeleted() {

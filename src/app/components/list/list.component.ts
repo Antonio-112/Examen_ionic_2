@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { IonContent, IonList, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonCardContent, IonButton } from "@ionic/angular/standalone";
-import { QuoteService } from 'src/app/core/quote.service';
+import { QuoteService, Quote } from 'src/app/core/quote.service';
+
 
 @Component({
   selector: 'app-quote-list',
@@ -12,9 +13,11 @@ import { QuoteService } from 'src/app/core/quote.service';
 })
 export class ListComponent {
   private quoteService = inject(QuoteService);
-  items = this.quoteService.getAllQuotes();
+  items: ReadonlyArray<Quote> = this.quoteService.getAllQuotes();
 
   eliminar(index: number) {
-    this.items.splice(index, 1);
+    const quote = this.items[index];
+    this.quoteService.removeQuote(quote);
+    this.items = this.quoteService.getAllQuotes();
   }
 }

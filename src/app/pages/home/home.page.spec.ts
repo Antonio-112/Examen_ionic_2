@@ -1,18 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { HomePage } from './home.page';
+import { SettingsService } from 'src/app/core/settings.service';
 
 describe('HomePage', () => {
   let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+  let settings: SettingsService;
 
-  beforeEach(async () => {
-    fixture = TestBed.createComponent(HomePage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [HomePage] });
+    settings = TestBed.inject(SettingsService);
+    component = TestBed.createComponent(HomePage).componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should read allowDelete from service', () => {
+    settings.setAllowDelete(true);
+    component.ionViewWillEnter();
+    expect(component.allowDelete).toBe(true);
   });
 });
