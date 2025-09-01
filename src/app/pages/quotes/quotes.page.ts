@@ -13,10 +13,7 @@ import {
   IonList,
 } from '@ionic/angular/standalone';
 import { ListComponent } from 'src/app/components/list/list.component';
-import { NavComponent } from 'src/app/components/nav/nav.component';
 import { QuoteService } from 'src/app/core/quote.service';
-} from '@ionic/angular/standalone';
-import { ListComponent } from 'src/app/components/list/list.component';
 import { NavComponent } from 'src/app/components/nav/nav.component';
 
 @Component({
