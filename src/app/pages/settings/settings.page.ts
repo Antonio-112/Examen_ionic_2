@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -10,6 +11,7 @@ import {
   IonFooter,
 } from '@ionic/angular/standalone';
 import { NavComponent } from 'src/app/components/nav/nav.component';
+import { SettingsService } from 'src/app/core/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -29,5 +31,13 @@ import { NavComponent } from 'src/app/components/nav/nav.component';
   ]
 })
 export class SettingsPage {
-  constructor() {}
+
+  private settings = inject(SettingsService);
+  allowDelete = this.settings.allowDelete;
+
+  onToggle(event: Event) {
+    const toggle = event as CustomEvent;
+    this.allowDelete = toggle.detail.checked;
+    this.settings.allowDelete = this.allowDelete;
+  }
 }

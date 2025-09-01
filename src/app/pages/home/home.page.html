@@ -13,7 +13,10 @@
     </ion-toolbar>
   </ion-header>
   <div id="container">
-    <app-quote></app-quote>
+    <app-quote
+      [allowDelete]="allowDelete"
+      (deleted)="quoteDeleted()"
+    ></app-quote>
   </div>
 </ion-content>
 <ion-footer>
