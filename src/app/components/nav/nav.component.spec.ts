@@ -16,7 +16,12 @@ describe('NavComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should have settings icon button on the right', () => {
+      const button = fixture.nativeElement.querySelector('ion-buttons[slot="end"] ion-button');
+      expect(button?.getAttribute('routerLink')).toBe('/settings');
+    });
   });
-});

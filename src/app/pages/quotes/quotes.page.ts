@@ -13,8 +13,8 @@ import {
   IonList,
 } from '@ionic/angular/standalone';
 import { ListComponent } from 'src/app/components/list/list.component';
-import { QuoteService } from 'src/app/core/quote.service';
 import { NavComponent } from 'src/app/components/nav/nav.component';
+import { QuoteService } from 'src/app/core/quote.service';
 
 @Component({
   selector: 'app-quotes',
