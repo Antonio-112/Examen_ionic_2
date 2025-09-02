@@ -44,10 +44,10 @@ export class QuotesPage {
   newQuoteAuthor = '';
   private quoteService = inject(QuoteService);
 
-  async addQuote() {
+  addQuote() {
     if (this.newQuoteText.trim() && this.newQuoteAuthor.trim()) {
       const quote: Quote = { text: this.newQuoteText, author: this.newQuoteAuthor };
-      await this.quoteService.addQuote(quote);
+      this.quoteService.addQuote(quote);
 
       this.newQuoteText = '';
       this.newQuoteAuthor = '';

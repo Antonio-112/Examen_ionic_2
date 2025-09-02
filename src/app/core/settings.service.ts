@@ -8,20 +8,16 @@ export class SettingsService {
   private allowDeleteSubject = new BehaviorSubject<boolean>(false);
 
   constructor() {
-    // Load persisted setting on service creation
-    this.loadAllowDelete();
+    void this.loadAllowDelete();
   }
 
-  // Observable for components that want to react to changes
+  
   readonly allowDelete$ = this.allowDeleteSubject.asObservable();
 
-  async setAllowDelete(value: boolean): Promise<void> {
+  setAllowDelete(value: boolean): void {
     this.allowDeleteSubject.next(value);
-    try {
-      await Preferences.set({ key: SettingsService.ALLOW_DELETE_KEY, value: JSON.stringify(value) });
-    } catch (_) {
-      // noop: keep in-memory value even if persistence fails
-    }
+    
+    void Preferences.set({ key: SettingsService.ALLOW_DELETE_KEY, value: JSON.stringify(value) }).catch(() => {});
   }
 
   getAllowDelete(): boolean {
@@ -34,8 +30,8 @@ export class SettingsService {
       if (value != null) {
         this.allowDeleteSubject.next(JSON.parse(value));
       }
-    } catch (_) {
-      // If read fails, keep default false
+    } catch {
+      // keep default
     }
   }
 }

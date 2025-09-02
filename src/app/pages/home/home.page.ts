@@ -39,6 +39,11 @@ export class HomePage implements OnInit, OnDestroy {
     this.sub?.unsubscribe();
   }
 
+  // Backward compatibility for tests
+  ionViewWillEnter() {
+    this.allowDelete = this.settings.getAllowDelete();
+  }
+
   quoteDeleted() {
     // placeholder for potential future actions when a quote is deleted
   }

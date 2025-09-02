@@ -51,10 +51,9 @@ export class QuoteComponent implements OnInit, OnDestroy {
 
   onDelete() {
     if (this.currentQuote) {
-      this.quoteService.removeQuote(this.currentQuote).then(() => {
-        this.deleted.emit();
-        this.currentQuote = this.quoteService.getRandomQuote();
-      });
+      this.quoteService.removeQuote(this.currentQuote);
+      this.deleted.emit();
+      this.currentQuote = this.quoteService.getRandomQuote();
     }
   }
 

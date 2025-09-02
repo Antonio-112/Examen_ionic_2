@@ -28,6 +28,8 @@ export class QuoteService {
   private ready: Promise<void>;
 
   constructor() {
+    // Seed synchronously so UI and tests have initial data immediately
+    this.quotesSubject.next([...this.defaultQuotes]);
     this.ready = this.init();
   }
 
@@ -93,29 +95,40 @@ export class QuoteService {
     return this.quotesSubject.value.map(q => ({ ...q }));
   }
 
-  async addQuote(quote: Quote): Promise<void> {
-    await this.ready;
+  addQuote(quote: Quote): void {
     const newQuote = { ...quote };
-    if (this.db) {
-      await this.db.run('INSERT INTO quotes (text, author) VALUES (?, ?);', [newQuote.text, newQuote.author]);
-      this.quotesSubject.next([...this.quotesSubject.value, newQuote]);
-    } else {
-      const next = [...this.quotesSubject.value, newQuote];
-      this.quotesSubject.next(next);
-      await Preferences.set({ key: this.PREF_KEY, value: JSON.stringify(next) });
-    }
+    const next = [...this.quotesSubject.value, newQuote];
+    this.quotesSubject.next(next);
+    // Persist in background
+    void (async () => {
+      try {
+        await this.ready;
+        if (this.db) {
+          await this.db.run('INSERT INTO quotes (text, author) VALUES (?, ?);', [newQuote.text, newQuote.author]);
+        } else {
+          await Preferences.set({ key: this.PREF_KEY, value: JSON.stringify(next) });
+        }
+      } catch (_) {
+        // ignore persistence errors for now
+      }
+    })();
   }
 
-  async removeQuote(quote: Quote): Promise<void> {
-    await this.ready;
-    if (this.db) {
-      await this.db.run('DELETE FROM quotes WHERE text = ? AND author = ?;', [quote.text, quote.author]);
-      const next = this.quotesSubject.value.filter(q => q.text !== quote.text || q.author !== quote.author);
-      this.quotesSubject.next(next);
-    } else {
-      const next = this.quotesSubject.value.filter(q => q.text !== quote.text || q.author !== quote.author);
-      this.quotesSubject.next(next);
-      await Preferences.set({ key: this.PREF_KEY, value: JSON.stringify(next) });
-    }
+  removeQuote(quote: Quote): void {
+    const next = this.quotesSubject.value.filter(q => q.text !== quote.text || q.author !== quote.author);
+    this.quotesSubject.next(next);
+    // Persist in background
+    void (async () => {
+      try {
+        await this.ready;
+        if (this.db) {
+          await this.db.run('DELETE FROM quotes WHERE text = ? AND author = ?;', [quote.text, quote.author]);
+        } else {
+          await Preferences.set({ key: this.PREF_KEY, value: JSON.stringify(next) });
+        }
+      } catch (_) {
+        // ignore
+      }
+    })();
   }
 }
