@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -32,10 +32,19 @@ import { SettingsService } from 'src/app/core/settings.service';
 export class SettingsPage {
   private settings = inject(SettingsService);
   allowDelete = this.settings.getAllowDelete();
+  private sub?: import('rxjs').Subscription;
 
-  onToggle(event: Event) {
+  ngOnInit(): void {
+    this.sub = this.settings.allowDelete$.subscribe(v => this.allowDelete = v);
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
+
+  async onToggle(event: Event) {
     const toggle = event as CustomEvent;
     this.allowDelete = toggle.detail.checked;
-    this.settings.setAllowDelete(this.allowDelete);
+    await this.settings.setAllowDelete(this.allowDelete);
   }
 }

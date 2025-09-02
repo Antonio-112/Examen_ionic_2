@@ -1,6 +1,6 @@
 <ion-content color="light">
   <ion-list [inset]="true">
-    <ion-card *ngFor="let item of items; let i = index">
+    <ion-card *ngFor="let item of (items$ | async); let i = index">
       <ion-card-header>
         <ion-card-title>{{ item.text }}</ion-card-title>
         <ion-card-subtitle>{{ item.author }}</ion-card-subtitle>

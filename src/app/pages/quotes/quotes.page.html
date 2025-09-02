@@ -10,15 +10,42 @@
       <ion-title size="large">quotes</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-list>
-    <ion-item>
-      <ion-input [(ngModel)]="newQuoteText" placeholder="Quote"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input [(ngModel)]="newQuoteAuthor" placeholder="Author"></ion-input>
-    </ion-item>
-    <ion-button expand="block" (click)="addQuote()">Add Quote</ion-button>
-  </ion-list>
+  <form #quoteForm="ngForm" (ngSubmit)="addQuote()" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-input
+          name="text"
+          [(ngModel)]="newQuoteText"
+          #textModel="ngModel"
+          required
+          minlength="5"
+          placeholder="Quote">
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="textModel.invalid && (textModel.dirty || textModel.touched)">
+        <small *ngIf="textModel.errors?.['required']">La frase es obligatoria.</small>
+        <small *ngIf="textModel.errors?.['minlength']">La frase debe tener al menos 5 caracteres.</small>
+      </ion-text>
+
+      <ion-item>
+        <ion-input
+          name="author"
+          [(ngModel)]="newQuoteAuthor"
+          #authorModel="ngModel"
+          required
+          minlength="2"
+          placeholder="Author">
+        </ion-input>
+      </ion-item>
+      <!-- Errors for author -->
+      <ion-text color="danger" *ngIf="authorModel.invalid && (authorModel.dirty || authorModel.touched)">
+        <small *ngIf="authorModel.errors?.['required']">El autor es obligatorio.</small>
+        <small *ngIf="authorModel.errors?.['minlength']">El autor debe tener al menos 2 caracteres.</small>
+      </ion-text>
+
+      <ion-button type="submit" expand="block" [disabled]="quoteForm.invalid">Add Quote</ion-button>
+    </ion-list>
+  </form>
   <app-quote-list></app-quote-list>
 </ion-content>
 <ion-footer>

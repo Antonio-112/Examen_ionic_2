@@ -13,11 +13,11 @@ import { QuoteService, Quote } from 'src/app/core/quote.service';
 })
 export class ListComponent {
   private quoteService = inject(QuoteService);
-  items: ReadonlyArray<Quote> = this.quoteService.getAllQuotes();
+  items$ = this.quoteService.quotes$;
 
-  eliminar(index: number) {
-    const quote = this.items[index];
-    this.quoteService.removeQuote(quote);
-    this.items = this.quoteService.getAllQuotes();
+  async eliminar(index: number) {
+    const items = this.quoteService.getAllQuotes();
+    const quote = items[index];
+    await this.quoteService.removeQuote(quote);
   }
 }

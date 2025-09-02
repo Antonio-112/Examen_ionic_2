@@ -1,5 +1,5 @@
 
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -26,12 +26,17 @@ import { SettingsService } from 'src/app/core/settings.service';
     NavComponent,
   ],
 })
-export class HomePage {
+export class HomePage implements OnInit, OnDestroy {
   private settings = inject(SettingsService);
   allowDelete = this.settings.getAllowDelete();
+  private sub?: import('rxjs').Subscription;
 
-  ionViewWillEnter() {
-    this.allowDelete = this.settings.getAllowDelete();
+  ngOnInit(): void {
+    this.sub = this.settings.allowDelete$.subscribe(v => this.allowDelete = v);
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
   quoteDeleted() {

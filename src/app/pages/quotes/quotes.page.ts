@@ -11,6 +11,7 @@ import {
   IonInput,
   IonButton,
   IonList,
+  IonText,
 } from '@ionic/angular/standalone';
 import { ListComponent } from 'src/app/components/list/list.component';
 import { NavComponent } from 'src/app/components/nav/nav.component';
@@ -31,6 +32,7 @@ import { QuoteService, Quote } from 'src/app/core/quote.service';
     IonInput,
     IonButton,
     IonList,
+    IonText,
     CommonModule,
     FormsModule,
     ListComponent,
@@ -42,10 +44,10 @@ export class QuotesPage {
   newQuoteAuthor = '';
   private quoteService = inject(QuoteService);
 
-  addQuote() {
+  async addQuote() {
     if (this.newQuoteText.trim() && this.newQuoteAuthor.trim()) {
       const quote: Quote = { text: this.newQuoteText, author: this.newQuoteAuthor };
-      this.quoteService.addQuote(quote);
+      await this.quoteService.addQuote(quote);
 
       this.newQuoteText = '';
       this.newQuoteAuthor = '';
